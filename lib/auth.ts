@@ -3,6 +3,7 @@ import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "./db";
+import { PrismaClient } from "@prisma/client";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,7 +18,7 @@ export const authOptions: NextAuthOptions = {
       allowDangerousEmailAccountLinking: true,
     }),
   ],
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(db as PrismaClient),
   pages: {
     signIn: "login",
   },

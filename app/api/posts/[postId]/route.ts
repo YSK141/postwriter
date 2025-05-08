@@ -64,7 +64,10 @@ export async function DELETE(
     return new Response(null, { status: 204 });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return new Response(error.issues, { status: 422 });
+      return new Response(JSON.stringify(error.issues as any), {
+        status: 422,
+        headers: { "Content-Type": "application/json" },
+      });
     } else {
       return NextResponse.json(null, { status: 500 });
     }
